@@ -1,10 +1,12 @@
 package com.example.demoJPA.controller;
 
+import com.example.demoJPA.dto.PostalDetailsUserDTO;
 import com.example.demoJPA.model.Customers;
 import com.example.demoJPA.service.CustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,4 +28,16 @@ public class CustomersController {
         c.setCountry("Romania");
         customersService.CreateCustomer(c);
     }
+
+    @GetMapping("/postalDetails/{username}")
+    public PostalDetailsUserDTO getPostalDetailsByUsername(@PathVariable String username) {
+        Customers customer = customersService.getCustomerByUsername(username);
+        PostalDetailsUserDTO dto = new PostalDetailsUserDTO();
+        dto.setAddress(customer.getAddress());
+        dto.setPhone(customer.getPhone());
+        dto.setCity(customer.getCity());
+        return dto;
+    }
+
+
 }

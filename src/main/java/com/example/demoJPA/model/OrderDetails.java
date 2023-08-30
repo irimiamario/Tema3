@@ -1,8 +1,6 @@
 package com.example.demoJPA.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -12,9 +10,15 @@ public class OrderDetails {
     @GeneratedValue
     Integer id;
 
-    String product_code;
-
     Integer quantity;
 
     Double priceEach;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Orders order;
+
+    @ManyToOne
+    @JoinColumn(name = "product_code")
+    private Products product;
 }

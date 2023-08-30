@@ -17,4 +17,5 @@ public class Payments {
     Date payment_date;
 
     Double amount;
+
 }

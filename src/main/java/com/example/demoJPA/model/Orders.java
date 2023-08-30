@@ -1,12 +1,12 @@
 package com.example.demoJPA.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,6 +23,17 @@ public class Orders {
 
     String comments;
 
-    Integer customer_id;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customers customer;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderDetails> orderDetails = new ArrayList<>();
+
+    public void addOrderDetail(OrderDetails orderDetail) {
+        orderDetails.add(orderDetail);
+        orderDetail.setOrder(this);
+    }
+
 
 }

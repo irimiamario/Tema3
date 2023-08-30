@@ -13,4 +13,9 @@ public class CustomersService {
     public void CreateCustomer(Customers c){
         customersRepository.save(c);
     }
+
+    public Customers getCustomerByUsername(String username) {
+        return customersRepository.findByUsername(username);
+    }
+
 }
